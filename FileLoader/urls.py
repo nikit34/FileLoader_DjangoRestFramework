@@ -3,13 +3,12 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from docs.views import home, file_upload_view
+from docs.views import home
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='main-view'),
-    path('upload/', file_upload_view, name='upload-view')
+    path('', home, name='home'),
 ]
 
 if settings.DEBUG:

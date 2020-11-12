@@ -14,32 +14,51 @@ input.addEventListener('change', ()=>{
     cancelBox.classList.remove('not-visible')
 
     const img_data = input.files[0]
+    const url = URL.createObjectURL(img_data)
+
     const fd = new FormData()
     fd.append('csrfmiddlewaretoken', csrf[0].value)
-    fd.append('image', img_data)
+    fd.append('upload', img_data)
 
     $.ajax({
-        type:'POST',
+        type: 'POST',
         url: uploadForm.action,
         enctype: 'multipart/form-data',
         data: fd,
         beforeSend: function(){
-
+            alertBox.innerHTML = ""
+            imageBox.innerHTML = ""
         },
         xhr: function(){
             const xhr = new window.XMLHttpRequest();
             xhr.upload.addEventListener('progress', e => {
                 if(e.lengthComputable){
-                    const percent = e.loaded / e.total * 100
+                    const percent = e.loaded / e.total * 100;
+                    progressBox.innerHTML = `<div class="progress">
+                    <div class="progress-bar" role="progressbar" role="progressbar" style="width: ${percent}%" aria-valuenow="${percent}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <p>${percent.toFixed(1)}%</p>`
                 }
+            })
+            cancelBtn.addEventListener('click', () => {
+                xhr.abort()
+                setTimeout(() => {
+                    uploadForm.reset()
+                    progressBox.innerHTML = ""
+                    alertBox.innerHTML = ""
+                    cancelBox.classList.add('not-visible')
+                }, 2000)
             })
             return xhr;
         },
         success: function(response){
-            console.log(1, response);
+            imageBox.innerHTML = `<img src="${url}" width="300px">`
+            alertBox.innerHTML = `<div class="alert alert-success" role="alert">
+                                    Successfully uploaded!</div>`
+            cancelBox.classList.add('not-visible')
         },
         error: function(error){
-            console.log(2, error);
+            alertBox.innerHTML = `<div class="alert alert-danger" role="alert">Something wrong...</div>`
         },
         cache: false,
         contentType: false,
