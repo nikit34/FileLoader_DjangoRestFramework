@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
         if not email:
             raise ValueError('This address email must be set')
 
-        email = self.mormalize_emaill(email)
+        email = self.normalize_email(email)
         user = self.model(username=username, email=email, **kwargs)
         user.set_password(password)
         user.save(using=self._db)
@@ -38,6 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         blank=False
     )
+    is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
     USERNAME_FIELD = 'email'
@@ -59,9 +60,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
     def _generate_jwt_token(self):
-        dt = datetime.now() + datetime.delta(days=60)
+        dt = datetime.now() + timedelta(days=60)
         token = jwt.encode({
             'id': self.pk,
             'exp': int(dt.strftime('%s')),
-        }, settings.SECRET_KEY, algorithm='H256')
+        }, settings.SECRET_KEY, algorithm='HS256')
         return token.decode('utf8')
