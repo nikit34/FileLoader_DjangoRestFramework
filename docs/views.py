@@ -11,6 +11,6 @@ def home(request):
             form.save()
             form = UploadForm()
     context = {
-        'form': form
+        'form': form,
     }
     return render(request, 'docs/main.html', context)

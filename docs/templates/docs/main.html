@@ -20,7 +20,14 @@
         {% endif %}
     </form>
     <hr>
-    <div id="progress-box" class="not-visible">Progress</div>
+    <div class="row">
+        <div class="col">
+            <div id="progress-box" class="not-visible">Progress</div>
+        </div>
+        <div class="col">
+            {{ status }}
+        </div>
+    </div>
     <div id="cancel-box" class="not-visible">
         <button id="cancel-btn" class="btn btn-danger">Cancel</button>
     </div>
