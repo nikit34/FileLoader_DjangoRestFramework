@@ -56,17 +56,11 @@ input.addEventListener('change', ()=>{
             return xhr;
         },
         success: function(response){
-            let need_type = 'warning'
-            let human_type = 'Is not sheet'
-            if (file_type.substring(file_type.length - 5) == 'sheet'){
-                need_type = 'success'
-                human_type = 'OK - sheet'
-            }
             fileBox.innerHTML = `<img src="${url}" width="300px">`
-            alertBox.innerHTML = `<div class="alert alert-${need_type}" role="alert">
+            alertBox.innerHTML = `<div class="alert alert-success" role="alert">
                                     Successfully uploaded!</div>`
-            infoBox.innerHTML = `<div class="text text-${need_type}">Type: ${human_type}</div>
-            <div class="text text-${need_type}">Size file: ${Math.round(file_size / 8192)} KB</div>`
+            infoBox.innerHTML = `<div class="text text-success">${file_type}</div>
+            <div class="text text-success">${file_size}</div>`
             cancelBox.classList.add('not-visible')
         },
         error: function(error){

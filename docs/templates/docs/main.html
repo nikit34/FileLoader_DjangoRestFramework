@@ -4,7 +4,8 @@
 {% block content %}
 
     <div id="alert-box"></div>
-    <div id="image-box"></div>
+    <div id="file-box"></div>
+    <div id="info-box"></div>
     <form action="{% url 'home' %}" id="upload-form">
         {% csrf_token %}
         {{ form.as_p }}
