@@ -29,16 +29,21 @@ INSTALLED_APPS = [
     'account',
 
     'rest_framework',
-    'rest_framework.authtoken'
+    # 'rest_framework.authtoken'
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.TokenAuthentication',
+#     ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10,
+# }
 
-AUTH_USER_MODEL = 'account.Account'
+AUTH_USER_MODEL = 'account.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,10 +124,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATICFILES_DIRS = (
+    BASE_DIR / 'static',
+    BASE_DIR / 'media',
+)
+
+
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
-STATIC_ROOT = BASE_DIR / 'static'
-STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'

@@ -1,10 +1,11 @@
 from django.db import models
-from account.models import Account
+
+from account.models import User
 
 
 class Doc(models.Model):
     upload = models.FileField(upload_to='images')
-    author = models.ForeignKey(Account, on_delete=models.CASCADE)
+    author = models.ManyToManyField(User)
 
     def __str__(self):
         return str(self.pk)
