@@ -24,7 +24,7 @@ class Sheet:
 
         yield (int_before, int_after)
 
-
+    @staticmethod
     def search_keys(workbook):
         for sheet_name in workbook.sheet_names():
             sheet = workbook.sheet_by_name(sheet_name)
@@ -41,6 +41,7 @@ class Sheet:
                     break
             yield (sheet, select)
 
+    @staticmethod
     def find_number(l1, l2):
         for item_l1 in l1:
             for item_l2 in l2:

@@ -6,7 +6,7 @@
     <div id="alert-box"></div>
     <div id="file-box"></div>
     <div id="info-box"></div>
-    <form action="{% url 'home' %}" id="upload-form">
+    <form action="{% url 'home' %}" method="POST" id="upload-form">
         {% csrf_token %}
         {{ form.as_p }}
         {% if form.non_field_errors %}
@@ -25,9 +25,7 @@
         <div class="col">
             <div id="progress-box" class="not-visible">Progress</div>
         </div>
-        <div class="col">
-            {{ status }}
-        </div>
+        <div class="col" id="result-box"></div>
     </div>
     <div id="cancel-box" class="not-visible">
         <button id="cancel-btn" class="btn btn-danger">Cancel</button>
